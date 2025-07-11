@@ -1,37 +1,53 @@
 "use client";
+import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
-import { NavLink } from "react-router-dom";
-import Logout from "./Logout";
+import NavLink from "./NavLink";
+import { databases } from "@/lib/appwrite";
+import { Query } from "appwrite";
 
 const NavRoutes = () => {
-  const user = {
-    id: false, // Example user ID, replace with actual user state
-    name: "John Doe", // Example user name, replace with actual user state
+  const { userAuth } = {
+    userAuth: {
+      id: "abc",
+      name: "Bipin",
+      isAdmin: false,
+    },
   };
+
+  interface Route {
+    $id: string;
+    name: string;
+    route: string;
+    isActive?: boolean;
+  }
+
+  const [routes, setRoutes] = useState<Route[]>();
+  useEffect(() => {
+    databases
+      .listDocuments(
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_NAV_ID!,
+        [Query.equal("isActive", true)]
+      )
+      .then((res: { documents: any[] }) => {
+        setRoutes(res.documents);
+      });
+  }, []);
+
   return (
     <>
-      <NavLink to="/">About</NavLink>
-      <NavLink to="/publications">Publications</NavLink>
-      <NavLink to="/research">Research</NavLink>
-      <NavLink to="/award">Award</NavLink>
-      <NavLink to="/teaching">Teaching</NavLink>
-      <NavLink to="/hobbies">Hobbies</NavLink>
-      <NavLink to="/certifications">Certifications</NavLink>
-      <NavLink to="/cv">CV</NavLink>
+      {routes?.map((route: any) => (
+        <NavLink key={route.$id} name={route.name} route={route.route} />
+      ))}
 
-      {user?.id && (
-        <>
-          <NavLink to="/dashboard">DASHBOARD</NavLink>
-          <NavDropdown
-            name="Quiz"
-            routes={[
-              { name: "Start Quiz", url: "/start-quiz" },
-              { name: "Quiz Results", url: "/quiz-results" },
-            ]}
-          />
-
-          <Logout />
-        </>
+      {userAuth?.isAdmin && (
+        <NavDropdown
+          name="Admin"
+          routes={[
+            { name: "User Approval", url: "/admin/user-approval" },
+            { name: "Content Approval", url: "/admin/content-approval" },
+          ]}
+        />
       )}
     </>
   );

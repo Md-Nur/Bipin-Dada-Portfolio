@@ -1,7 +1,6 @@
 "use client";
-import { NavLink } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import "./style.css";
+import NavLink from "./NavLink";
 
 const NavDropdown = ({
   name,
@@ -11,7 +10,6 @@ const NavDropdown = ({
   routes: { name: string; url?: string }[];
 }) => {
   const detailsRef = useRef<HTMLDetailsElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,7 +25,6 @@ const NavDropdown = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
   const handleClick = () => {
     const details = document.getElementsByClassName("vocabbo-dropdown");
     if (details) {
@@ -40,22 +37,11 @@ const NavDropdown = ({
   };
   return (
     <li className="dropdown dropdown-hover z-30">
-      <details
-        ref={detailsRef}
-        className="vocabbo-dropdown"
-        id={`${name}-dropdown`}
-        onClick={handleClick}
-      >
+      <details ref={detailsRef} onClick={handleClick} className="ieee-dropdown">
         <summary className="uppercase">{name}</summary>
         <ul className="p-2 w-56 bg-base-200">
           {routes.map((route, index) => (
-            <NavLink
-              key={index}
-              to={route.url || "#"}
-              className={"block p-2 hover:bg-base-300"}
-            >
-              {route.name}
-            </NavLink>
+            <NavLink key={index} name={route.name} route={route.url} />
           ))}
         </ul>
       </details>
