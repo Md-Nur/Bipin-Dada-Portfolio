@@ -34,24 +34,7 @@ const Navbar = ({ children }: { children: ReactNode }) => {
               <NavRoutes />
             </ul>
           </div>
-          {!userAuth ? (
-            <>
-              <Link
-                href="/join/1"
-                className="btn btn-sm btn-outline uppercase mr-2"
-              >
-                Join
-              </Link>
-              <Link
-                href="/login"
-                className="btn btn-sm btn-outline uppercase mr-2"
-              >
-                Login
-              </Link>
-            </>
-          ) : (
-            <Profile />
-          )}
+          
         </div>
         {children}
       </div>

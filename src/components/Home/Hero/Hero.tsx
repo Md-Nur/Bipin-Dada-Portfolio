@@ -1,0 +1,55 @@
+"use client";
+import { databases } from "@/lib/appwrite";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import TextLine from "../../Skeleton/TextLine";
+import parse from "html-react-parser"; // Assuming you have this package installed for parsing HTML strings
+import ActionBtn from "./ActionBtn";
+
+const Hero = () => {
+  const [heroData, setHeroData] = useState<string | null>(null);
+
+  useEffect(() => {
+    databases
+      .getDocument(
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!,
+        "6878b38500069d1bd644"
+      )
+      .then((res) => {
+        setHeroData(res.content);
+      });
+  }, []);
+
+  return (
+    <div className="hero bg-base-200 min-h-screen">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="flex flex-col">
+          <Image
+            alt="Hero Image"
+            width={500}
+            height={500}
+            src="/dp.png"
+            className="max-w-sm rounded-lg shadow-2xl"
+          />
+          <p className="max-w-sm text-xl my-5 font-bold font-sans text-right">
+            Rajshahi, Bangladesh <br /> bsaha@aggies.ncat.edu <br />
+            bipinsaha.bd@gmail.com
+          </p>
+        </div>
+        <div className="w-full">
+          <h1 className="text-5xl font-bold">Bipin Saha</h1>
+          <div className="py-6 w-full lg:min-w-2xl">
+            {heroData ? parse(heroData) : <TextLine />}
+          </div>
+          <a download href={"/resume.pdf"} className="btn btn-primary mr-3">
+            Curriculum Vitae
+          </a>
+          <ActionBtn />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
