@@ -4,15 +4,10 @@ import NavDropdown from "./NavDropdown";
 import NavLink from "./NavLink";
 import { databases } from "@/lib/appwrite";
 import { Query } from "appwrite";
+import { useUserAuth } from "@/context/userAuth";
 
 const NavRoutes = () => {
-  const { userAuth } = {
-    userAuth: {
-      id: "abc",
-      name: "Bipin",
-      isAdmin: false,
-    },
-  };
+  const { user } = useUserAuth();
 
   interface Route {
     $id: string;
@@ -40,15 +35,7 @@ const NavRoutes = () => {
         <NavLink key={route.$id} name={route.name} route={route.route} />
       ))}
 
-      {userAuth?.isAdmin && (
-        <NavDropdown
-          name="Admin"
-          routes={[
-            { name: "User Approval", url: "/admin/user-approval" },
-            { name: "Content Approval", url: "/admin/content-approval" },
-          ]}
-        />
-      )}
+      {user?.$id && <NavLink name="Admin" route="/admin" />}
     </>
   );
 };

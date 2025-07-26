@@ -2,12 +2,9 @@
 import { ReactNode } from "react";
 import { IoMdMenu } from "react-icons/io";
 import NavRoutes from "./NavRoutes";
-import Image from "next/image";
-import Profile from "./Profile";
 import Link from "next/link";
 
 const Navbar = ({ children }: { children: ReactNode }) => {
-  const { userAuth } = { userAuth: { id: "abc", name: "Nur", isAdmin: true } };
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />

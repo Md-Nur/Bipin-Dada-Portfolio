@@ -1,5 +1,5 @@
 "use client";
-import { account, databases } from "@/lib/appwrite";
+import { databases } from "@/lib/appwrite";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import TextLine from "../../Skeleton/TextLine";
@@ -27,8 +27,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="hero min-h-screen max-w-5xl mx-auto">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="hero min-h-screen w-full max-w-5xl mx-auto">
+      <div className="hero-content flex-col lg:flex-row-reverse w-full gap-10">
         <div className="flex flex-col">
           <Image
             alt="Hero Image"
@@ -44,7 +44,7 @@ const Hero = () => {
         </div>
         <div className="w-full">
           <h1 className="text-5xl font-bold">Bipin Saha</h1>
-          <div className="py-6 w-full">
+          <div className="py-6 w-full text-justify">
             {heroData ? parse(heroData) : <TextLine />}
           </div>
           <a download href={"/resume.pdf"} className="btn btn-primary mr-3">
