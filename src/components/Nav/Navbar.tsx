@@ -13,7 +13,7 @@ const Navbar = ({ children }: { children: ReactNode }) => {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="navbar bg-base-300 w-full sticky top-0 z-10 shadow-lg">
+        <div className="navbar bg-base-300 w-full sticky top-0 z-10 shadow-lg px-5">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"

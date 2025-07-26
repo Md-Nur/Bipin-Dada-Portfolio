@@ -14,15 +14,18 @@ const Hero = () => {
       .getDocument(
         process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
         process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!,
-        "6878b38500069d1bd644"
+        "6884caee0027d8923e44"
       )
       .then((res) => {
         setHeroData(res.content);
+      })
+      .catch((error) => {
+        console.error("Error fetching hero data:", error);
       });
   }, []);
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero min-h-screen max-w-5xl mx-auto">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="flex flex-col">
           <Image
@@ -32,14 +35,14 @@ const Hero = () => {
             src="/dp.png"
             className="max-w-sm rounded-lg shadow-2xl"
           />
-          <p className="max-w-sm text-xl my-5 font-bold font-sans text-right">
+          <p className="max-w-sm text-xl my-5 font-bold font-sans text-center lg:text-right">
             Rajshahi, Bangladesh <br /> bsaha@aggies.ncat.edu <br />
             bipinsaha.bd@gmail.com
           </p>
         </div>
         <div className="w-full">
           <h1 className="text-5xl font-bold">Bipin Saha</h1>
-          <div className="py-6 w-full lg:min-w-2xl">
+          <div className="py-6 w-full">
             {heroData ? parse(heroData) : <TextLine />}
           </div>
           <a download href={"/resume.pdf"} className="btn btn-primary mr-3">
