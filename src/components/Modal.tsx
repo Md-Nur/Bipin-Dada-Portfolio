@@ -25,13 +25,15 @@ const Modal = ({
       >
         {title}
       </button>
-      <dialog id={id} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-action">
-          <div className="modal-box">
-            {children}
+      <dialog id={id} className="modal">
+        <div className="modal-box w-11/12 max-w-5xl">
+          {children}
+          <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              {/* if there is a button, it will close the modal */}
+              <button className="btn btn-circle btn-neutral absolute right-2 top-2 z-10">
+                ✕
+              </button>
             </form>
           </div>
         </div>

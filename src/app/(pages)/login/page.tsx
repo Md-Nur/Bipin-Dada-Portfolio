@@ -1,6 +1,9 @@
 "use client";
+import { useUserAuth } from "@/context/userAuth";
 import { account } from "@/lib/appwrite";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [auth, setAuth] = useState<{
@@ -10,19 +13,39 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const promise = account.createEmailPasswordSession(
-    auth?.email || "email@example.com",
-    auth?.password || "password"
-  );
-
-  promise.then(
-    function (response) {
-      console.log(response); // Success
-    },
-    function (error) {
-      console.log(error); // Failure
+  const route = useRouter();
+  const { setUser } = useUserAuth();
+  const handleLogin = async () => {
+    if (!auth.email || !auth.password) {
+      toast.error("Email and password are required.");
+      return;
     }
-  );
+
+    const loadingToastId = toast.loading("Logging in...");
+
+    try {
+      const res = await account.createEmailPasswordSession(
+        auth?.email,
+        auth?.password
+      );
+
+      console.log("Login response:", res);
+      // Fetch user details after successful login
+      const user = await account.get();
+      toast.dismiss(loadingToastId); // Dismiss the specific loading toast
+      toast.success("Login successful!");
+      setUser(user); // Set the user in context
+      route.push("/"); // Redirect to home page after successful login
+    } catch (error) {
+      toast.dismiss(loadingToastId); // Dismiss the specific loading toast
+      const errorMessage =
+        typeof error === "object" && error !== null && "message" in error
+          ? (error as { message?: string }).message
+          : undefined;
+      toast.error(`Login failed: ${errorMessage || "Unknown error"}`);
+      console.error("Login error:", error);
+    }
+  };
 
   return (
     <div className="hero min-h-screen max-w-5xl mx-auto">
@@ -39,13 +62,32 @@ const Login = () => {
           <div className="card-body">
             <fieldset className="fieldset">
               <label className="label">Email</label>
-              <input type="email" className="input" placeholder="Email" />
+              <input
+                type="email"
+                className="input"
+                placeholder="Email"
+                onChange={(e) =>
+                  setAuth({
+                    ...auth,
+                    email: (e.target as HTMLInputElement).value,
+                  })
+                }
+              />
               <label className="label">Password</label>
-              <input type="password" className="input" placeholder="Password" />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
-              <button className="btn btn-neutral mt-4">Login</button>
+              <input
+                type="password"
+                className="input"
+                placeholder="Password"
+                onChange={(e) =>
+                  setAuth({
+                    ...auth,
+                    password: (e.target as HTMLInputElement).value,
+                  })
+                }
+              />
+              <button className="btn btn-neutral mt-4" onClick={handleLogin}>
+                Login
+              </button>
             </fieldset>
           </div>
         </div>

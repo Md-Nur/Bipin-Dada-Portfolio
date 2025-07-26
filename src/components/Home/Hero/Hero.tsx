@@ -1,13 +1,15 @@
 "use client";
-import { databases } from "@/lib/appwrite";
+import { account, databases } from "@/lib/appwrite";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import TextLine from "../../Skeleton/TextLine";
 import parse from "html-react-parser"; // Assuming you have this package installed for parsing HTML strings
 import ActionBtn from "./ActionBtn";
+import { useUserAuth } from "@/context/userAuth";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
+  const { user } = useUserAuth();
 
   useEffect(() => {
     databases
@@ -48,7 +50,7 @@ const Hero = () => {
           <a download href={"/resume.pdf"} className="btn btn-primary mr-3">
             Curriculum Vitae
           </a>
-          <ActionBtn />
+          {user?.$id && <ActionBtn initVal={heroData} />}
         </div>
       </div>
     </div>

@@ -3,7 +3,13 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useRef, useState, useEffect } from "react";
 import type { Editor as TinyMCEEditor } from "tinymce";
 
-const TinyEditor = () => {
+const TinyEditor = ({
+  initVal = "",
+  actionFunc,
+}: {
+  initVal?: string;
+  actionFunc: (val: string) => void;
+}) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -11,9 +17,10 @@ const TinyEditor = () => {
     setIsMounted(true);
   }, []);
 
-  const log = () => {
+  const act = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+      // console.log(editorRef.current.getContent());
+      actionFunc(editorRef.current.getContent());
     }
   };
 
@@ -38,7 +45,7 @@ const TinyEditor = () => {
       <Editor
         apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
         onInit={(_evt, editor) => (editorRef.current = editor)}
-        initialValue=""
+        initialValue={initVal}
         init={{
           height: 500,
           menubar: false,
@@ -61,7 +68,6 @@ const TinyEditor = () => {
             "code",
             "help",
             "wordcount",
-            "math",
           ],
           toolbar:
             "math | undo redo | blocks | " +
@@ -72,7 +78,9 @@ const TinyEditor = () => {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button onClick={log}>Log editor content</button>
+      <button type="button" className="btn btn-primary m-3" onClick={act}>
+        Submit
+      </button>
     </>
   );
 };
