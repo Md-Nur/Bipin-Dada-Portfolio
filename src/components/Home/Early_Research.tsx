@@ -1,6 +1,6 @@
 "use client";
 
-import ActionBtn from "@/components/Home/ActionBtn";
+import UpdateAction from "@/components/UpdateAction";
 import TextLine from "@/components/Skeleton/TextLine";
 import { useUserAuth } from "@/context/userAuth";
 import { databases } from "@/lib/appwrite";
@@ -42,7 +42,7 @@ const EarlyResearch = () => {
         <TextLine />
       )}
       {user?.$id && (
-        <ActionBtn
+        <UpdateAction
           docId={docId}
           colId={process.env.NEXT_PUBLIC_APPWRITE_EARLY_RESEARCH_ID!}
           initVal={earlyResearch}

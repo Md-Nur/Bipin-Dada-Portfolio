@@ -5,7 +5,7 @@ import { databases } from "@/lib/appwrite";
 import { toast } from "react-toastify";
 
 
-const ActionBtn = ({ initVal, docId, colId }: { initVal: string | null, docId: string, colId: string }) => {
+const UpdateAction = ({ initVal, docId, colId }: { initVal: string | null, docId: string, colId: string }) => {
   const actionFunc = (val: string) => {
     
     databases
@@ -42,4 +42,4 @@ const ActionBtn = ({ initVal, docId, colId }: { initVal: string | null, docId: s
   );
 };
 
-export default ActionBtn;
+export default UpdateAction;

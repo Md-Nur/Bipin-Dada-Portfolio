@@ -4,9 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import TextLine from "../Skeleton/TextLine";
 import parse from "html-react-parser"; // Assuming you have this package installed for parsing HTML strings
-import ActionBtn from "./ActionBtn";
 import { useUserAuth } from "@/context/userAuth";
-
+import UpdateAction from "@/components/UpdateAction";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
@@ -56,7 +55,7 @@ const Hero = () => {
           
           */}
           {user?.$id && (
-            <ActionBtn
+            <UpdateAction
               docId={docId}
               colId={process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!}
               initVal={heroData}
