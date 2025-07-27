@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { databases } from "@/lib/appwrite";
 import { toast } from "react-toastify";
+import ImgSkeleton from "@/components/Skeleton/Img";
 
 export default function Slider() {
   const [images, setImages] = useState<any[]>([]);
@@ -35,7 +36,7 @@ export default function Slider() {
       });
   }, []);
   if (images.length === 0) {
-    return <div className="text-center text-xl">No images available</div>;
+    return <ImgSkeleton />; // Show skeleton while loading images
   }
   return (
     <div className="w-full h-[400px] lg:h-[600px] max-w-4xl mx-auto my-10">

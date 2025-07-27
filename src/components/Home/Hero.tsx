@@ -2,10 +2,11 @@
 import { databases } from "@/lib/appwrite";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import TextLine from "../../Skeleton/TextLine";
+import TextLine from "../Skeleton/TextLine";
 import parse from "html-react-parser"; // Assuming you have this package installed for parsing HTML strings
 import ActionBtn from "./ActionBtn";
 import { useUserAuth } from "@/context/userAuth";
+
 
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
@@ -26,6 +27,7 @@ const Hero = () => {
       });
   }, []);
 
+  const docId = "6884caee0027d8923e44";
   return (
     <div className="hero min-h-screen w-full max-w-5xl mx-auto">
       <div className="hero-content flex-col lg:flex-row-reverse w-full gap-10">
@@ -44,13 +46,22 @@ const Hero = () => {
         </div>
         <div className="w-full">
           <h1 className="text-5xl font-bold">Bipin Saha</h1>
-          <div className="py-6 w-full text-justify">
+          <div className="py-6 w-full text-justify raw">
             {heroData ? parse(heroData) : <TextLine />}
           </div>
           <a download href={"/resume.pdf"} className="btn btn-primary mr-3">
             Curriculum Vitae
           </a>
-          {user?.$id && <ActionBtn initVal={heroData} />}
+          {/* 
+          
+          */}
+          {user?.$id && (
+            <ActionBtn
+              docId={docId}
+              colId={process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!}
+              initVal={heroData}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ const Modal = ({
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn btn-secondary"
+        className="btn btn-secondary my-3"
         onClick={() => {
           const modal = document.getElementById(id);
           if (modal) {

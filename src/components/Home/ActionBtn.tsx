@@ -4,15 +4,14 @@ import TinyEditor from "@/components/TinyMCE";
 import { databases } from "@/lib/appwrite";
 import { toast } from "react-toastify";
 
-const docId = "6884caee0027d8923e44";
 
-const ActionBtn = ({ initVal }: { initVal: string | null }) => {
+const ActionBtn = ({ initVal, docId, colId }: { initVal: string | null, docId: string, colId: string }) => {
   const actionFunc = (val: string) => {
     
     databases
       .updateDocument(
         process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
-        process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!,
+        colId,
         docId,
         {
           content: val,
