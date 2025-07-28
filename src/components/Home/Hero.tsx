@@ -6,6 +6,7 @@ import TextLine from "../Skeleton/TextLine";
 import parse from "html-react-parser"; // Assuming you have this package installed for parsing HTML strings
 import { useUserAuth } from "@/context/userAuth";
 import UpdateAction from "@/components/UpdateAction";
+import { toast } from "react-toastify";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
@@ -22,7 +23,12 @@ const Hero = () => {
         setHeroData(res.content);
       })
       .catch((error) => {
-        console.error("Error fetching hero data:", error);
+        toast.error(
+          `Error fetching early research data: ${
+            error.message || "Unknown error"
+          }`
+        );
+        console.error("Error fetching early research data:", error);
       });
   }, []);
 
