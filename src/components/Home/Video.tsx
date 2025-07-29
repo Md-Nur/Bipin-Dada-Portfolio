@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const docId = "6885e89f001562620252";
 
 const Video = () => {
-  const [url, setUrl] = useState<string | null>(null);
+  const [url, setUrl] = useState<string>("");
   const { user } = useUserAuth();
 
   const updateVideo = (e: FormEvent<HTMLFormElement>) => {
