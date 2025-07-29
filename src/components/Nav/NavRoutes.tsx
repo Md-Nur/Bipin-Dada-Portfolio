@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import NavDropdown from "./NavDropdown";
+// import NavDropdown from "./NavDropdown";
 import NavLink from "./NavLink";
 import { databases } from "@/lib/appwrite";
 import { Query } from "appwrite";
@@ -24,14 +24,21 @@ const NavRoutes = () => {
         process.env.NEXT_PUBLIC_APPWRITE_NAV_ID!,
         [Query.equal("isActive", true)]
       )
-      .then((res: { documents: any[] }) => {
-        setRoutes(res.documents);
+      .then((res) => {
+        setRoutes(
+          res.documents.map((doc) => ({
+            $id: doc.$id,
+            name: doc.name,
+            route: doc.route,
+            isActive: doc.isActive,
+          }))
+        );
       });
   }, []);
 
   return (
     <>
-      {routes?.map((route: any) => (
+      {routes?.map((route) => (
         <NavLink key={route.$id} name={route.name} route={route.route} />
       ))}
 

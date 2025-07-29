@@ -7,8 +7,14 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+type ImageDocument = {
+  $id: string;
+  imgUrl: string;
+  deleteUrl: string;
+};
+
 const Images = () => {
-  const [images, setImages] = useState<any[]>([]);
+  const [images, setImages] = useState<ImageDocument[]>([]);
 
   useEffect(() => {
     databases
@@ -17,7 +23,13 @@ const Images = () => {
         process.env.NEXT_PUBLIC_APPWRITE_IMAGES_ID!
       )
       .then((response) => {
-        setImages(response.documents);
+        setImages(
+          response.documents.map((doc) => ({
+            $id: doc.$id,
+            imgUrl: doc.imgUrl,
+            deleteUrl: doc.deleteUrl,
+          }))
+        );
       })
       .catch((error) => {
         console.error("Error fetching images:", error);
@@ -57,7 +69,11 @@ const Images = () => {
       );
       setImages((prevImages) => [
         ...prevImages,
-        { imgUrl: imgbb.data.data.url, deleteUrl: imgbb.data.data.delete_url },
+        {
+          imgUrl: imgbb.data.data.url,
+          deleteUrl: imgbb.data.data.delete_url,
+          ...newImage,
+        },
       ]);
       toast.success("Image added successfully!");
     } catch (error) {

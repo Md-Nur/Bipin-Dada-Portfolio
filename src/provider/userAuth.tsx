@@ -17,7 +17,7 @@ function UserAuth({ children }: { children: ReactNode }) {
       .then((user) => {
         setUser(user);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         // If user is not authenticated, silently set user to null
         // This prevents the app from crashing when no user is logged in
         if (
@@ -29,7 +29,7 @@ function UserAuth({ children }: { children: ReactNode }) {
           console.error("Error fetching user data:", error);
         }
       });
-  }, []);
+  }, [user?.$id]);
 
   return (
     <UserAuthProvider value={{ user, setUser }}>{children}</UserAuthProvider>

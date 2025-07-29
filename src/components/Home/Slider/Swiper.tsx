@@ -16,8 +16,13 @@ import { databases } from "@/lib/appwrite";
 import { toast } from "react-toastify";
 import ImgSkeleton from "@/components/Skeleton/Img";
 
+interface ImageDoc {
+  $id: string;
+  imgUrl: string;
+}
+
 export default function Slider() {
-  const [images, setImages] = useState<any[]>([]);
+    const [images, setImages] = useState<ImageDoc[]>([]);
 
   useEffect(() => {
     databases
@@ -26,7 +31,13 @@ export default function Slider() {
         process.env.NEXT_PUBLIC_APPWRITE_IMAGES_ID!
       )
       .then((response) => {
-        setImages(response.documents);
+        setImages(
+          response.documents.map((doc) => ({
+            $id: doc.$id,
+            imgUrl: doc.imgUrl,
+            // Add other fields if needed
+          }))
+        );
       })
       .catch((error) => {
         console.error("Error fetching images:", error);
