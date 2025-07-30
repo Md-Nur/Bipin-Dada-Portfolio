@@ -7,6 +7,7 @@ import parse from "html-react-parser"; // Assuming you have this package install
 import { useUserAuth } from "@/context/userAuth";
 import UpdateAction from "@/components/UpdateAction";
 import { toast } from "react-toastify";
+import dp from "../../../public/dp.png";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
@@ -39,10 +40,9 @@ const Hero = () => {
         <div className="flex flex-col">
           <Image
             alt="Hero Image"
-            width={500}
-            height={500}
-            src="/dp.png"
+            src={dp}
             className="max-w-sm rounded-lg shadow-2xl"
+            placeholder="blur"
           />
           <p className="max-w-sm text-xl my-5 font-bold font-sans text-center lg:text-right">
             Rajshahi, Bangladesh <br /> bsaha@aggies.ncat.edu <br />

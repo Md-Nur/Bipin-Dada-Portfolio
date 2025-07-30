@@ -82,8 +82,7 @@ const Video = () => {
   return url ? (
     <div className="w-full max-w-5xl mx-auto my-10">
       <iframe
-        width="970"
-        height="562"
+        className="w-full max-w-4xl mx-auto min-h-[400px] h-full rounded-lg"
         src={url}
         title="Presentation on Undergraduate Thesis Defense by Md Abrar Jahin"
         frameBorder="0"
@@ -99,11 +98,11 @@ const Video = () => {
           >
             <input
               type="url"
-              className="input input-primary"
+              className="input input-primary w-full max-w-3xl"
               defaultValue={url}
               onChange={(e) => setUrl(e.target.value)}
             />
-            <button className="btn btn-accent w-44" type="submit">
+            <button className="btn btn-accent w-40 mx-auto" type="submit">
               Update
             </button>
           </form>
