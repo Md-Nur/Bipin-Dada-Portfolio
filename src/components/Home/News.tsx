@@ -19,7 +19,7 @@ const News = () => {
     databases
       .listDocuments(process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!, colId)
       .then((res) => {
-        const newsDocs = res.documents.map((doc: any) => ({
+        const newsDocs = res.documents.map((doc) => ({
           $id: doc.$id,
           date: doc.date,
           content: doc.content,
@@ -46,7 +46,9 @@ const News = () => {
               {newsItem?.title || "Title"}
             </div>
             {newsItem.content}
-            {newsItem?.ref && <iframe className="w-full rounded-2xl my-5" src={newsItem.ref} />}
+            {newsItem?.ref && (
+              <iframe className="w-full rounded-2xl my-5" src={newsItem.ref} />
+            )}
           </div>
           {i !== news.length - 1 && <hr />}
         </li>
