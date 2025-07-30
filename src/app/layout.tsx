@@ -5,6 +5,7 @@ import Navbar from "@/components/Nav/Navbar";
 import { ReactNode } from "react";
 import UserAuth from "@/provider/userAuth";
 import { Bounce, ToastContainer } from "react-toastify";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
             theme="light"
             transition={Bounce}
           />
+          <Footer />
         </UserAuth>
       </body>
     </html>
