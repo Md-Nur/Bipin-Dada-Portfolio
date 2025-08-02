@@ -13,6 +13,7 @@ const docId = "6885d90500167f3819ee";
 const EarlyResearch = () => {
   const [earlyResearch, setEarlyResearch] = useState<string | null>(null);
   const { user } = useUserAuth();
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     databases
       .getDocument(
@@ -31,7 +32,7 @@ const EarlyResearch = () => {
         );
         console.error("Error fetching early research data:", error);
       });
-  }, []);
+  }, [update]);
 
   return (
     <div className="w-full max-w-5xl mx-auto my-10">
@@ -46,6 +47,7 @@ const EarlyResearch = () => {
           docId={docId}
           colId={process.env.NEXT_PUBLIC_APPWRITE_EARLY_RESEARCH_ID!}
           initVal={earlyResearch}
+          setUpdate={setUpdate}
         />
       )}
     </div>

@@ -12,6 +12,7 @@ import dp from "../../../public/dp.png";
 const Hero = () => {
   const [heroData, setHeroData] = useState<string | null>(null);
   const { user } = useUserAuth();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     databases
@@ -29,9 +30,8 @@ const Hero = () => {
             error.message || "Unknown error"
           }`
         );
-        console.error("Error fetching early research data:", error);
       });
-  }, []);
+  }, [isUpdating]);
 
   const docId = "6884caee0027d8923e44";
   return (
@@ -65,6 +65,7 @@ const Hero = () => {
               docId={docId}
               colId={process.env.NEXT_PUBLIC_APPWRITE_HERO_ID!}
               initVal={heroData}
+              setUpdate={setIsUpdating}
             />
           )}
         </div>

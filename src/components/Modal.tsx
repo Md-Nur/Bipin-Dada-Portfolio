@@ -15,7 +15,13 @@ const Modal = ({
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn btn-secondary my-3 mx-auto"
+        className={`btn m-1 btn-sm ${
+          title === "Remove"
+            ? "btn-error"
+            : title === "Update"
+            ? "btn-info"
+            : "btn-accent"
+        }`}
         onClick={() => {
           const modal = document.getElementById(id);
           if (modal) {

@@ -15,6 +15,7 @@ const ChildhoodAcademic = () => {
   const [childhoodAcademic, setChildhoodAcademic] = useState<string | null>(
     null
   );
+  const [update, setUpdate] = useState(false);
   const { user } = useUserAuth();
   useEffect(() => {
     databases
@@ -30,7 +31,7 @@ const ChildhoodAcademic = () => {
         );
         console.error("Error fetching early research data:", error);
       });
-  }, []);
+  }, [update]);
 
   return (
     <div className="w-full max-w-5xl mx-auto my-10">
@@ -43,7 +44,12 @@ const ChildhoodAcademic = () => {
         <TextLine />
       )}
       {user?.$id && (
-        <UpdateAction docId={docId} colId={colId} initVal={childhoodAcademic} />
+        <UpdateAction
+          docId={docId}
+          colId={colId}
+          initVal={childhoodAcademic}
+          setUpdate={setUpdate}
+        />
       )}
     </div>
   );

@@ -13,6 +13,7 @@ const docId = "6887e6b3000312281009";
 const LifeAcademia = () => {
   const [lifeAcademia, setLifeAcademia] = useState<string | null>(null);
   const { user } = useUserAuth();
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     databases
       .getDocument(
@@ -31,7 +32,7 @@ const LifeAcademia = () => {
         );
         console.error("Error fetching early research data:", error);
       });
-  }, []);
+  }, [update]);
 
   return (
     <div className="w-full max-w-5xl mx-auto my-10">
@@ -48,6 +49,7 @@ const LifeAcademia = () => {
           docId={docId}
           colId={"6887e64a00061c31a5ad"}
           initVal={lifeAcademia}
+          setUpdate={setUpdate}
         />
       )}
     </div>

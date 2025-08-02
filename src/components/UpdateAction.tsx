@@ -4,10 +4,21 @@ import TinyEditor from "@/components/TinyMCE";
 import { databases } from "@/lib/appwrite";
 import { toast } from "react-toastify";
 
-
-const UpdateAction = ({ initVal, docId, colId }: { initVal: string | null, docId: string, colId: string }) => {
+const UpdateAction = ({
+  initVal,
+  docId,
+  colId,
+  setUpdate,
+}: {
+  initVal: string | null;
+  docId: string;
+  colId: string;
+  setUpdate?: (val: boolean) => void;
+}) => {
   const actionFunc = (val: string) => {
-    
+    if (setUpdate) {
+      setUpdate(true);
+    }
     databases
       .updateDocument(
         process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
@@ -17,21 +28,23 @@ const UpdateAction = ({ initVal, docId, colId }: { initVal: string | null, docId
           content: val,
         }
       )
-      .then((res) => {
+      .then(() => {
         toast.success("Hero content updated successfully!");
-        console.log("Update response:", res);
-        const modal = document.getElementById(docId);
-          if (modal) {
-            (modal as HTMLDialogElement).close(); // Close the modal after update
-          }
-        window.location.reload();
       })
       .catch((error) => {
         toast.error(
           `Error updating hero content: ${error.message || "Unknown error"}`
         );
-        console.error("Update error:", error);
+      })
+      .finally(() => {
+        if (setUpdate) {
+          setUpdate(false);
+        }
       });
+    const modal = document.getElementById(docId);
+    if (modal) {
+      (modal as HTMLDialogElement).close(); // Close the modal after update
+    }
   };
   return (
     <Modal id={docId} title="Update">

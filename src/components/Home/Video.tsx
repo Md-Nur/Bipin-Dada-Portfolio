@@ -100,6 +100,7 @@ const Video = () => {
               type="url"
               className="input input-primary w-full max-w-3xl"
               defaultValue={url}
+              placeholder="Enter youtube video Link"
               onChange={(e) => setUrl(e.target.value)}
             />
             <button className="btn btn-accent w-40 mx-auto" type="submit">
