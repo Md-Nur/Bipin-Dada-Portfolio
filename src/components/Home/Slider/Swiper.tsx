@@ -35,7 +35,6 @@ export default function Slider() {
           response.documents.map((doc) => ({
             $id: doc.$id,
             imgUrl: doc.imgUrl,
-            // Add other fields if needed
           }))
         );
       })

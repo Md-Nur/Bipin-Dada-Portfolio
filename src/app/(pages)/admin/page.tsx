@@ -1,6 +1,6 @@
 "use client";
 
-import Images from "@/components/Admin/Images";
+import Images from "@/app/(pages)/admin/Images";
 
 const Admin = () => {
   return (
