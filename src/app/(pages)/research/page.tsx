@@ -2,8 +2,8 @@ import AddButton from "@/app/(pages)/research/Add";
 import ShowMore from "@/app/(pages)/research/ShowMore";
 import UpdateButton from "@/app/(pages)/research/Update";
 import Title from "@/components/Title";
-import { useUserAuth } from "@/context/userAuth";
 import { databases } from "@/lib/appwrite";
+import { getCurrentUser } from "@/lib/auth";
 import { Query } from "appwrite";
 import Image from "next/image";
 import { FaCode, FaHandPointDown } from "react-icons/fa";
@@ -15,7 +15,7 @@ const Research = async () => {
     [Query.orderDesc("time")]
   );
 
-  const { user } = useUserAuth();
+  const user = await getCurrentUser();
   return (
     <div className="w-full">
       <Title>Research</Title>
@@ -52,21 +52,19 @@ const Research = async () => {
               )}
             </p>
             <div className="card-actions justify-end">
-              {
-                <>
-                  <UpdateButton
-                    data={{
-                      $id: research.$id,
-                      title: research.title,
-                      content: research.content,
-                      ref: research?.ref,
-                      code: research?.code,
-                      thumbnail: research?.thumbnail,
-                      time: research.time,
-                    }}
-                  />
-                </>
-              }
+              {user?.$id && (
+                <UpdateButton
+                  data={{
+                    $id: research.$id,
+                    title: research.title,
+                    content: research.content,
+                    ref: research?.ref,
+                    code: research?.code,
+                    thumbnail: research?.thumbnail,
+                    time: research.time,
+                  }}
+                />
+              )}
 
               {research?.code && (
                 <a
