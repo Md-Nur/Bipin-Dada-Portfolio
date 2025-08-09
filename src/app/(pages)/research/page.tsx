@@ -9,8 +9,8 @@ import { FaCode, FaHandPointDown } from "react-icons/fa";
 
 const Research = async () => {
   const { documents: researches } = await databases.listDocuments(
-    process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
-    process.env.NEXT_PUBLIC_APPWRITE_RESEARCH!,
+    process.env.DATABASE_ID!,
+    process.env.RESEARCH_ID!,
     [Query.orderDesc("time")]
   );
 
