@@ -14,11 +14,10 @@ const Research = async () => {
     [Query.orderDesc("time")]
   );
 
-  const user = { $id: false };
   return (
     <div className="w-full">
       <Title>Research</Title>
-      {user?.$id && <AddButton />}
+      <AddButton />
       {researches.map((research) => (
         <div
           className="card bg-base-300 w-full max-w-lg shadow-sm"
@@ -51,19 +50,17 @@ const Research = async () => {
               )}
             </p>
             <div className="card-actions justify-end">
-              {user?.$id && (
-                <UpdateButton
-                  data={{
-                    $id: research.$id,
-                    title: research.title,
-                    content: research.content,
-                    ref: research?.ref,
-                    code: research?.code,
-                    thumbnail: research?.thumbnail,
-                    time: research.time,
-                  }}
-                />
-              )}
+              <UpdateButton
+                data={{
+                  $id: research.$id,
+                  title: research.title,
+                  content: research.content,
+                  ref: research?.ref,
+                  code: research?.code,
+                  thumbnail: research?.thumbnail,
+                  time: research.time,
+                }}
+              />
 
               {research?.code && (
                 <a

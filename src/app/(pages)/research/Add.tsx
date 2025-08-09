@@ -2,12 +2,14 @@
 
 import Form from "@/app/(pages)/research/Form";
 import Modal from "@/components/Modal";
+import { useUserAuth } from "@/context/userAuth";
 import { databases } from "@/lib/appwrite";
 import { getImgBBUrl } from "@/lib/imgbb";
 import { FormEvent } from "react";
 import { toast } from "react-toastify";
 
 const AddButton = () => {
+  const { user } = useUserAuth();
   const handleAdd = async (event: FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
@@ -56,12 +58,15 @@ const AddButton = () => {
     location.reload();
   };
 
+  if (!user?.$id) {
+    return null; // Don't show the button if the user is not authenticated
+  }
   return (
-    <Modal id="Add-Research" title="Edit">
+    <Modal id="Add-Research" title="Add Research">
       <form onSubmit={handleAdd} className="flex flex-col w-full gap-3">
         <Form />
-        <button className="btn btn-info" type="submit">
-          Update
+        <button className="btn btn-info my-5" type="submit">
+          Add
         </button>
       </form>
     </Modal>

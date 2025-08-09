@@ -20,7 +20,6 @@ const Form = ({
         type="file"
         name="thumbnail"
         accept="image/*"
-        defaultValue={data?.thumbnail || ""}
       />
       <input
         className="input input-primary w-full"

@@ -2,6 +2,7 @@
 
 import Form from "@/app/(pages)/research/Form";
 import Modal from "@/components/Modal";
+import { useUserAuth } from "@/context/userAuth";
 import { databases } from "@/lib/appwrite";
 import { getImgBBUrl } from "@/lib/imgbb";
 import { FormEvent } from "react";
@@ -20,6 +21,7 @@ const UpdateButton = ({
     time: string;
   };
 }) => {
+  const { user } = useUserAuth();
   const handleUpdate = async (event: FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
@@ -67,6 +69,10 @@ const UpdateButton = ({
     // Reload the page
     location.reload();
   };
+
+  if (!user?.$id) {
+    return null; // Don't show the button if the user is not authenticated
+  }
 
   return (
     <Modal id={data.$id} title="Edit">
