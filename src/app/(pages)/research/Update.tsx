@@ -71,7 +71,7 @@ const UpdateButton = ({
   };
 
   if (!user?.$id) {
-    return null; // Don't show the button if the user is not authenticated
+    return null; // Don't show the button if the user is not authenticated.
   }
 
   return (
