@@ -3,15 +3,15 @@ import { toast } from "react-toastify";
 
 interface ImgBBResponseData {
   url: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 interface ImgBBResponse {
   data: {
     data: ImgBBResponseData;
-    [key: string]: any;
+    // Removed string index signature to fix type error
   };
-  [key: string]: any;
+  // Removed string index signature to fix type error
 }
 
 export const getImgBBUrl = async (files: FileList | File[]): Promise<string | undefined> => {

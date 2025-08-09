@@ -3,7 +3,6 @@ import ShowMore from "@/app/(pages)/research/ShowMore";
 import UpdateButton from "@/app/(pages)/research/Update";
 import Title from "@/components/Title";
 import { databases } from "@/lib/appwrite";
-import { getCurrentUser } from "@/lib/auth";
 import { Query } from "appwrite";
 import Image from "next/image";
 import { FaCode, FaHandPointDown } from "react-icons/fa";
@@ -15,7 +14,7 @@ const Research = async () => {
     [Query.orderDesc("time")]
   );
 
-  const user = await getCurrentUser();
+  const user = { $id: false };
   return (
     <div className="w-full">
       <Title>Research</Title>

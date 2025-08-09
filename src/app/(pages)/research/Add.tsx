@@ -20,7 +20,14 @@ const AddButton = () => {
     if (thumbnailInput && thumbnailInput.size > 0) {
       thumbnail = await getImgBBUrl([thumbnailInput]);
     }
-    const newData: any = {
+    const newData: {
+      title: FormDataEntryValue;
+      content: FormDataEntryValue;
+      ref: FormDataEntryValue | null;
+      code: FormDataEntryValue | null;
+      time: FormDataEntryValue;
+      thumbnail?: string | null | undefined;
+    } = {
       title: formData.get("title") ?? "",
       content: formData.get("content") ?? "",
       ref: formData.get("ref") || null,

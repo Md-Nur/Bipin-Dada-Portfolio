@@ -32,7 +32,14 @@ const UpdateButton = ({
     if (thumbnailInput && thumbnailInput.size > 0) {
       thumbnail = await getImgBBUrl([thumbnailInput]);
     }
-    const updatedData: any = {
+    const updatedData: {
+      title: FormDataEntryValue;
+      content: FormDataEntryValue;
+      ref: FormDataEntryValue | null;
+      code: FormDataEntryValue | null;
+      time: FormDataEntryValue;
+      thumbnail?: string | null;
+    } = {
       title: formData.get("title") ?? "",
       content: formData.get("content") ?? "",
       ref: formData.get("ref") || null,
